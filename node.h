@@ -11,10 +11,13 @@ class Node {
 private:
   int id_;
   static int nextId_;
+  Link* link;
 
 public:
   Node() : id_(nextId_++) {}
   int id() const { return id_; }
+
+  Link* getLink() { return this->link; }
 };
 
 #endif
