@@ -4,6 +4,8 @@
 #include "address.h"
 #include "packet.h"
 #include "service.h"
+#include "link.h"
+#include "node.h"
 #include <vector>
 
 class Host : public Node {
@@ -19,7 +21,7 @@ private:
 public:
   Address address() { return address_; }
   Host(Address address) : address_(address) {}
-
+  
   // 호스트와 설치된 서비스를 전부 초기화한다.
   void initialize();
 
@@ -28,6 +30,9 @@ public:
 
   // 빈 포트를 한 개 탐색한다.
   short get_empty_port();
+
+  // 링크로부터 패킷을 받았을 경우
+  virtual void onPacketReceived(Packet* packet);
 };
 
 #endif

@@ -5,7 +5,10 @@ void Host::initialize() {
 }
 
 void Host::send(Packet* packet) {
-
+  auto links = this->getAllLinks();
+  for (auto iter : links) {
+    iter->send(packet, this);
+  }
 }
 
 short Host::get_empty_port() {
@@ -20,6 +23,18 @@ short Host::get_empty_port() {
 
     if (available) {
       return i;
+    }
+  }
+}
+
+void Host::onPacketReceived(Packet* packet) {
+  if (packet->destAddress() != this->address_) {
+    return;
+  }
+
+  for (auto service : this->services_) {
+    if (service->getPort() == packet->destPort()) {
+      service->onPacketReceived(packet);
     }
   }
 }

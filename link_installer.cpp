@@ -3,9 +3,9 @@
 
 Link* LinkInstaller::install(Node* a, Node* b) {
   Link* link = new Link(a, b);
-  a->link = link;
-  b->link = link;
   link->nodeA_ = a;
   link->nodeB_ = b;
+  a->links.push_back(link);
+  b->links.push_back(link);
   return link;
 }

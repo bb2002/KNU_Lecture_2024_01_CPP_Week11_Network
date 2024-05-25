@@ -19,6 +19,8 @@ protected:
 
 public:
   short getPort() { return this->port_; }
+
+  virtual void onPacketReceived(Packet* packet);
 };
 
 #endif

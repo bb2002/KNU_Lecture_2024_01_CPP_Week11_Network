@@ -12,6 +12,7 @@ public:
   Address(int address) : address_(address) {}
   std::string toString() const { return std::to_string(address_); }
   bool operator==(const Address &rhs) const { return address_ == rhs.address_; }
+  bool operator!=(const Address &rhs) const { return address_ != rhs.address_; }
 };
 
 #endif
