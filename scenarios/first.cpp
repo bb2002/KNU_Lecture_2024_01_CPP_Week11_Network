@@ -86,13 +86,13 @@ int main() {
 
   // 생성한 객체를 제거한다.
   for (size_t i = 0; i < links.size(); i++) {
-    delete links[i];
+    // delete links[i];
   }
 
   for (size_t i = 0; i < routers.size(); i++) {
-    delete routers[i];
+    // delete routers[i];
   }
 
-  delete echoServer;
-  delete messageClient;
+  // delete echoServer;
+  // delete messageClient;
 }

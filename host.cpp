@@ -25,6 +25,8 @@ short Host::get_empty_port() {
       return i;
     }
   }
+
+  return -1;
 }
 
 void Host::onPacketReceived(Packet* packet) {

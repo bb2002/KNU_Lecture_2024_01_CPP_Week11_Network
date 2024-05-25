@@ -11,4 +11,5 @@ MessageService* MessageServiceInstaller::install(Host* host) {
   );
 
   ServiceInstaller::install(host, messageService);
+  return messageService;
 }

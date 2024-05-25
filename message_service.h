@@ -21,6 +21,8 @@ private:
 public:
   // 메시지를 전송한다
   void send(std::string message);
+
+  virtual void onPacketReceived(Packet* packet);
 };
 
 #endif

@@ -1,5 +1,3 @@
 #include "node.h"
 
-void Node::onPacketReceived(Packet* packet) {
-    
-}
+int Node::nextId_ = 0;

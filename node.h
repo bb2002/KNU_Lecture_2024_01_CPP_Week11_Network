@@ -6,6 +6,8 @@
 #include <map>
 #include <vector>
 
+class Link;
+
 class Node {
   friend class LinkInstaller;
 
@@ -26,7 +28,7 @@ public:
     return this->links[idx];
   }
 
-  virtual void onPacketReceived(Packet* packet);
+  virtual void onPacketReceived(Packet* packet) {}
 };
 
 #endif

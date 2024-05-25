@@ -15,13 +15,13 @@ private:
 
   Node *nodeA_;
   Node *nodeB_;
-  
+
+public:
   // 매개변수로 주어진 노드가 아닌 반대편 노드를 구한다.
   Node *other(const Node *node) const {
     return node == nodeA_ ? nodeB_ : nodeA_;
   }
-
-public:
+  
   void send(Packet* packet, Node* sender);
 };
 

@@ -13,6 +13,9 @@ public:
 class Router : public Node {
 protected:
   std::vector<RoutingEntry> routingTable_;
+
+public:
+  virtual void onPacketReceived(Packet* packet) {};
 };
 
 #endif
