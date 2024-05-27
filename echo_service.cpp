@@ -6,7 +6,7 @@ void EchoService::onPacketReceived(Packet* packet) {
    << "\"" 
    << std::string(data.begin(), data.end()) 
    << "\"" 
-   << "from " 
+   << " from " 
    << packet->srcAddress().toString() 
    << ":" 
    << packet->srcPort() 

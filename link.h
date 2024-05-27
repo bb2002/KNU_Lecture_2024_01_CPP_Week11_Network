@@ -4,6 +4,7 @@
 #include "packet.h"
 #include "node.h"
 #include <cstdlib>
+#include <iostream>
 
 class Node;
 

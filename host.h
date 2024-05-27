@@ -7,6 +7,7 @@
 #include "link.h"
 #include "node.h"
 #include <vector>
+#include <iostream>
 
 class Host : public Node {
   friend class ServiceInstaller;
