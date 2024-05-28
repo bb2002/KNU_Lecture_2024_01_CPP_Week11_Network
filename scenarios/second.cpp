@@ -74,15 +74,15 @@ int main() {
     }
   }
 
-  // for (int i = 0; i < COUNT; i++) {
-  //   delete servers[i];
-  //   delete clients[i];
-  // }
+  for (int i = 0; i < COUNT; i++) {
+    delete servers[i];
+    delete clients[i];
+  }
 
-  // delete router;
+  delete router;
 
-  // for (int i = 0; i < COUNT; i++) {
-  //   delete serverLinks[i];
-  //   delete clientLinks[i];
-  // }
+  for (int i = 0; i < COUNT; i++) {
+    delete serverLinks[i];
+    delete clientLinks[i];
+  }
 }
