@@ -9,3 +9,5 @@ void Link::send(Packet* packet, Node* sender) {
       << node->id() << std::endl;
 	node->onPacketReceived(packet);
 }
+
+Link::~Link() {}

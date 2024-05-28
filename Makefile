@@ -52,8 +52,8 @@ service.o: service.cpp service.h
 first: first.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
 	$(CC) $(CFLAGS) -o first first.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
 
-second: second.o
-	$(CC) $(CFLAGS) -o second second.o
+second: second.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
+	$(CC) $(CFLAGS) -o second second.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
 
 # Clean target
 clean:

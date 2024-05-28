@@ -44,22 +44,23 @@ void Host::onPacketReceived(Packet* packet) {
     return;
   }
 
-  std::cout << "Host #" 
-    << this->id() 
-    << ": received packet, destination port: "
-    << packet->destPort() 
-    << std::endl;
-
-  bool isServiceAvailable = false;
-
-  for (auto service : this->services_) {
-    if (service->getPort() == packet->destPort()) {
-      service->onPacketReceived(packet);
-      isServiceAvailable = true;
+  std::vector<Service *>::iterator service;
+  bool isServiceExists = false;
+  for (service = this->services_.begin(); service != this->services_.end(); service++) {
+    if ((*service)->getPort() == packet->destPort()) {
+      isServiceExists = true;
+      break;
     }
   }
 
-  if (!isServiceAvailable) {
+  if (isServiceExists) {
+    std::cout << "Host #" 
+      << this->id() 
+      << ": received packet, destination port: "
+      << packet->destPort() 
+      << std::endl;
+    (*service)->onPacketReceived(packet);
+  } else {
     std::cout << "Host #" 
       << this->id() 
       << ": no service for packet (from: " 
@@ -70,3 +71,5 @@ void Host::onPacketReceived(Packet* packet) {
       << " bytes)" << std::endl;
   }
 }
+
+Host::~Host() {}

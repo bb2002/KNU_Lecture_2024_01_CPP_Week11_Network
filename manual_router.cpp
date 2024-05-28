@@ -31,3 +31,5 @@ void ManualRouter::onPacketReceived(Packet* packet) {
       << " bytes)" << std::endl;
   }
 }
+
+ManualRouter::~ManualRouter() {}

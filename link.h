@@ -24,6 +24,8 @@ public:
   }
   
   void send(Packet* packet, Node* sender);
+
+  ~Link();
 };
 
 #endif

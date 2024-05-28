@@ -23,6 +23,8 @@ public:
   void send(std::string message);
 
   virtual void onPacketReceived(Packet* packet);
+
+  ~MessageService();
 };
 
 #endif
