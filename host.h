@@ -34,8 +34,6 @@ public:
 
   // 링크로부터 패킷을 받았을 경우
   virtual void onPacketReceived(Packet* packet);
-
-  virtual ~Host();
 };
 
 #endif

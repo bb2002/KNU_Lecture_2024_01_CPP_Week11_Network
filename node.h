@@ -29,8 +29,6 @@ public:
   }
 
   virtual void onPacketReceived(Packet* packet) = 0;
-
-  virtual ~Node();
 };
 
 #endif

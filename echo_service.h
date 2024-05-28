@@ -15,8 +15,6 @@ private:
 
 public:
   virtual void onPacketReceived(Packet* packet);
-
-  ~EchoService();
 };
 
 #endif

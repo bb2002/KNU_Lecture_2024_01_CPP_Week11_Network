@@ -22,7 +22,3 @@ void MessageService::onPacketReceived(Packet* packet) {
 		<< packet->srcPort() 
 		<< std::endl;
 }
-
-MessageService::~MessageService() {
-	
-}

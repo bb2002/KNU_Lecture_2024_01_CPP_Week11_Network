@@ -70,5 +70,3 @@ void Host::onPacketReceived(Packet* packet) {
       << " bytes)" << std::endl;
   }
 }
-
-Host::~Host() {}

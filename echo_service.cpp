@@ -22,7 +22,3 @@ void EchoService::onPacketReceived(Packet* packet) {
       )
    );
 }
-
-EchoService::~EchoService() {
-  
-}

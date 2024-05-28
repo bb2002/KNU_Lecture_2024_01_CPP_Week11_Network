@@ -24,8 +24,6 @@ public:
   }
   
   void send(Packet* packet, Node* sender);
-
-  virtual ~Link();
 };
 
 #endif
