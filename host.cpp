@@ -1,8 +1,6 @@
 #include "host.h"
 
-void Host::initialize() {
-
-}
+void Host::initialize() {}
 
 void Host::send(Packet* packet) {
   auto links = this->getAllLinks();
@@ -70,6 +68,13 @@ void Host::onPacketReceived(Packet* packet) {
       << packet->data().size() 
       << " bytes)" << std::endl;
   }
+
+  // 서비스에 도착한 패킷은 더 이상 사용하지 않으니 폐기
+  delete packet;
 }
 
-Host::~Host() {}
+Host::~Host() {
+  for (auto service : this->services_) {
+    delete service;
+  }
+}

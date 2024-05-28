@@ -2,8 +2,8 @@ CC = g++
 CFLAGS = -g -Wall -Werror -std=c++11
 
 # All target
-all: first
-#all: second
+#all: first
+all: second
 
 # Object files
 first.o: scenarios/first.cpp

@@ -24,7 +24,7 @@ public:
 
   virtual void onPacketReceived(Packet* packet);
 
-  ~MessageService();
+  virtual ~MessageService();
 };
 
 #endif
