@@ -20,7 +20,9 @@ protected:
 public:
   short getPort() { return this->port_; }
 
-  virtual void onPacketReceived(Packet* packet) {};
+  virtual void onPacketReceived(Packet* packet) = 0;
+
+  virtual ~Service();
 };
 
 #endif

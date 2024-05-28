@@ -17,6 +17,8 @@ public:
 
   // 라우터로 패킷이 들어온 경우
   virtual void onPacketReceived(Packet* packet);
+
+  virtual ~ManualRouter();
 };
 
 #endif

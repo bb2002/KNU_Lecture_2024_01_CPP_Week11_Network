@@ -39,21 +39,36 @@ short Host::get_empty_port() {
   return -1;
 }
 
-void Host::onPacketReceived(Packet* packet) {
-  std::cout << "Host #" 
-      << this->id() 
-      << ": received packet, destination port: "
-      << packet->destPort() 
-      << std::endl;
-      
+void Host::onPacketReceived(Packet* packet) {      
   if (packet->destAddress() != this->address_) {
     return;
   }
 
+  std::cout << "Host #" 
+    << this->id() 
+    << ": received packet, destination port: "
+    << packet->destPort() 
+    << std::endl;
+
+  bool isServiceAvailable = false;
+
   for (auto service : this->services_) {
     if (service->getPort() == packet->destPort()) {
-      
       service->onPacketReceived(packet);
+      isServiceAvailable = true;
     }
   }
+
+  if (!isServiceAvailable) {
+    std::cout << "Host #" 
+      << this->id() 
+      << ": no service for packet (from: " 
+      << packet->srcAddress().toString() 
+      << ", to: " << packet->destAddress().toString() 
+      << ", " 
+      << packet->data().size() 
+      << " bytes)" << std::endl;
+  }
 }
+
+Host::~Host() {}

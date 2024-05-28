@@ -16,6 +16,8 @@ protected:
 
 public:
   virtual void onPacketReceived(Packet* packet) {};
+
+  virtual ~Router();
 };
 
 #endif

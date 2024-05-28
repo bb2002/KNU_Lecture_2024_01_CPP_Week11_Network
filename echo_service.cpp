@@ -12,14 +12,17 @@ void EchoService::onPacketReceived(Packet* packet) {
    << packet->srcPort() 
    << ", send reply with same data" << std::endl;
 
-  // 데이터 회차
    this->host_->send(
       new Packet(
         this->host_->address(),
         packet->srcAddress(),
         this->port_,
-        packet->destPort(),
+        packet->srcPort(),
         data
       )
    );
+}
+
+EchoService::~EchoService() {
+  
 }

@@ -28,7 +28,9 @@ public:
     return this->links[idx];
   }
 
-  virtual void onPacketReceived(Packet* packet) {}
+  virtual void onPacketReceived(Packet* packet) = 0;
+
+  virtual ~Node();
 };
 
 #endif
