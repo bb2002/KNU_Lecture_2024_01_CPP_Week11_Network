@@ -1,8 +1,21 @@
 CC = g++
 CFLAGS = -g -Wall -Werror -std=c++11
+OBJECTS = simulator.o object.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
 
 # All target
-all: first second
+all: first second third forth
+
+first: first.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o first first.o $(OBJECTS)
+
+second: second.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o second second.o $(OBJECTS)
+
+third: third.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o third third.o $(OBJECTS)
+
+forth: forth.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o forth forth.o $(OBJECTS)
 
 # Object files
 first.o: scenarios/first.cpp
@@ -11,11 +24,23 @@ first.o: scenarios/first.cpp
 second.o: scenarios/second.cpp
 	$(CC) $(CFLAGS) -c scenarios/second.cpp -o second.o
 
+third.o: scenarios/third.cpp
+	$(CC) $(CFLAGS) -c scenarios/third.cpp
+
+forth.o: scenarios/forth.cpp
+	$(CC) $(CFLAGS) -c scenarios/forth.cpp
+
 echo_service_installer.o: echo_service_installer.cpp echo_service_installer.h
 	$(CC) $(CFLAGS) -c echo_service_installer.cpp -o echo_service_installer.o
 
 echo_service.o: echo_service.cpp echo_service.h
 	$(CC) $(CFLAGS) -c echo_service.cpp -o echo_service.o
+
+simulator.o: simulator.cpp
+	$(CC) $(CFLAGS) -c simulator.cpp
+
+object.o: object.cpp
+	$(CC) $(CFLAGS) -c object.cpp
 
 host.o: host.cpp host.h
 	$(CC) $(CFLAGS) -c host.cpp -o host.o
@@ -46,13 +71,6 @@ service_installer.o: service_installer.cpp service_installer.h
 
 service.o: service.cpp service.h
 	$(CC) $(CFLAGS) -c service.cpp -o service.o
-
-# Targets
-first: first.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
-	$(CC) $(CFLAGS) -o first first.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
-
-second: second.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
-	$(CC) $(CFLAGS) -o second second.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
 
 # Clean target
 clean:
