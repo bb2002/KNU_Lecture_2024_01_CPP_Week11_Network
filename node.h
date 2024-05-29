@@ -7,13 +7,7 @@
 #include <map>
 #include <vector>
 
-<<<<<<< HEAD
-class Link;
-
-class Node {
-=======
 class Node : Object {
->>>>>>> second
   friend class LinkInstaller;
 
 private:
