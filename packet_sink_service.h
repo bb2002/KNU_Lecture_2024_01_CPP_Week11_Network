@@ -6,7 +6,10 @@
 
 class PacketSinkService : public Service {
 private:
-  PacketSinkService(Host *host, short port);
+  Host* host;
+  short port;
+
+  PacketSinkService(Host *host, short port) : Service(host, port), host(host), port(port) {};
 };
 
 #endif

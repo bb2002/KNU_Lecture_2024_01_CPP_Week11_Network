@@ -1,6 +1,6 @@
 CC = g++
 CFLAGS = -g -Wall -Werror -std=c++11
-OBJECTS = simulator.o object.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o
+OBJECTS = simulator.o object.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o bulk_send_service_installer.o bulk_send_service.o packet_sink_service_installer.o packet_sink_service.o
 
 # All target
 all: first second third forth
@@ -72,6 +72,19 @@ service_installer.o: service_installer.cpp service_installer.h
 service.o: service.cpp service.h
 	$(CC) $(CFLAGS) -c service.cpp -o service.o
 
+bulk_send_service_installer.o: bulk_send_service_installer.cpp bulk_send_service_installer.h
+	$(CC) $(CFLAGS) -c bulk_send_service_installer.cpp -o bulk_send_service_installer.o
+
+bulk_send_service.o: bulk_send_service.cpp bulk_send_service.h
+	$(CC) $(CFLAGS) -c bulk_send_service.cpp -o bulk_send_service.o
+
+packet_sink_service_installer.o: packet_sink_service_installer.cpp packet_sink_service_installer.h
+	$(CC) $(CFLAGS) -c packet_sink_service_installer.cpp -o packet_sink_service_installer.o
+
+packet_sink_service.o: packet_sink_service.cpp packet_sink_service.h
+	$(CC) $(CFLAGS) -c packet_sink_service.cpp -o packet_sink_service.o
+
+
 # Clean target
 clean:
-	del *.o first second
+	del *.o first second third forth

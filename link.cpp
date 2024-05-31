@@ -1,4 +1,5 @@
 #include "link.h"
+#include "node.h"
 
 void Link::send(Packet* packet, Node* sender) {
 	auto node = this->other(sender);

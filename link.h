@@ -3,7 +3,6 @@
 
 #include "object.h"
 #include "packet.h"
-#include "node.h"
 #include <cstdlib>
 #include <iostream>
 
@@ -33,6 +32,10 @@ public:
   }
   
   void send(Packet* packet, Node* sender);
+
+  virtual std::string name() {
+    return "Link";
+  }  
 
   ~Link();
 };

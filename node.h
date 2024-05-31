@@ -27,6 +27,10 @@ public:
     return this->links[idx];
   }
 
+  virtual std::string name() {
+    return "Node";
+  }
+
   virtual void onPacketReceived(Packet* packet) = 0;
 };
 

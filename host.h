@@ -32,6 +32,10 @@ public:
   // 빈 포트를 한 개 탐색한다.
   short get_empty_port();
 
+  virtual std::string name() {
+    return "Host";
+  }
+
   // 링크로부터 패킷을 받았을 경우
   virtual void onPacketReceived(Packet* packet);
 

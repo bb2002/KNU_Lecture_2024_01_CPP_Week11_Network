@@ -16,6 +16,10 @@ private:
 public:
   virtual void onPacketReceived(Packet* packet);
 
+  virtual std::string name() {
+    return "Echo Service";
+  }
+
   virtual ~EchoService();
 };
 

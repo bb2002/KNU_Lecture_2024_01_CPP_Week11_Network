@@ -24,6 +24,10 @@ public:
 
   virtual void onPacketReceived(Packet* packet);
 
+  virtual std::string name() {
+    return "MessageService";
+  }
+
   virtual ~MessageService();
 };
 

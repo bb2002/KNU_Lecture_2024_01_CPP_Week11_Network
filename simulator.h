@@ -10,6 +10,7 @@
 
 class Simulator;
 
+
 class Schedule {
 private:
   double time_;
@@ -21,6 +22,10 @@ public:
 
   Schedule(double time, std::function<void()> function)
       : time_(time), function_(function) {}
+
+  bool operator<(const Schedule& e) const {
+    return this->time_ > e.time_;
+  }
 };
 
 class Simulator {
@@ -33,8 +38,7 @@ public:
   static void prepare() { srand(RANDOM_SEED); }
 
   static void schedule(double time, std::function<void()> function) {
-    // 스케줄 큐에 스케줄을 추가한다.
-    // TODO: 구현
+    
   }
 
   static void run() {
