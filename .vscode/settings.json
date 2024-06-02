@@ -46,6 +46,7 @@
         "queue": "cpp",
         "ctime": "cpp",
         "set": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "unordered_set": "cpp"
     }
 }

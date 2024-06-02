@@ -21,6 +21,16 @@ private:
   BulkSendService(Host *host, Address destAddress, short destPort,
                   double delay = 1, double startTime = 0,
                   double stopTime = 10.0) : Service(host, host->get_empty_port()), host(host), destAddress(destAddress), destPort(destPort), delay(delay), startTime(startTime), stopTime(stopTime) {};
+
+  virtual std::string name() {
+    return "BulkSendService";
+  };
+
+  void log(std::string message) {
+    Service::log(message);
+  }
+
+  virtual void initialize();
 };
 
 #endif

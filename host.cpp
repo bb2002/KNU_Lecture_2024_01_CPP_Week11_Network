@@ -1,6 +1,10 @@
 #include "host.h"
 
-void Host::initialize() {}
+void Host::initialize() {
+  for (Service* service : this->services_) {
+    service->initialize();
+  }
+}
 
 void Host::send(Packet* packet) {
   auto links = this->getAllLinks();

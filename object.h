@@ -63,7 +63,7 @@ public:
 #endif
   }
 
-protected:
+public:
   void log(std::string message) {
     std::ostringstream oss;
     oss.setf(std::ios::fixed);

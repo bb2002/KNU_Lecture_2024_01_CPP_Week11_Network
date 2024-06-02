@@ -31,6 +31,7 @@ public:
 class Simulator {
 private:
   static double time_;
+  static std::priority_queue<Schedule> queue;
 
 public:
   static double now() { return time_; }
@@ -38,7 +39,7 @@ public:
   static void prepare() { srand(RANDOM_SEED); }
 
   static void schedule(double time, std::function<void()> function) {
-    
+    Simulator::queue.push({ time, function });
   }
 
   static void run() {

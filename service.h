@@ -23,6 +23,16 @@ public:
 
   virtual void onPacketReceived(Packet* packet) = 0;
 
+  virtual void initialize() {};
+
+  virtual std::string name() {
+    return "Service";
+  };
+
+  void log(std::string message) {
+    Object::log(message);
+  }
+
   virtual ~Service();
 };
 
