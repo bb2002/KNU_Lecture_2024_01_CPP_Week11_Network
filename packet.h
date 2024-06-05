@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-class Packet : Object {
+class Packet : public Object {
 public:
   Packet(Address srcAddress, Address destAddress, short srcPort, short destPort,
          std::string data)

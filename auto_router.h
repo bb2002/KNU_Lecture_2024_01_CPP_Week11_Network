@@ -80,6 +80,14 @@ public:
         }
       }
     }
+
+  virtual std::string name() {
+    return "AutoRouter";
+  }
+
+  virtual void onPacketReceived(Packet* packet) {
+    Simulator::schedule(Simulator::now());
+  }
 };
 
 #endif

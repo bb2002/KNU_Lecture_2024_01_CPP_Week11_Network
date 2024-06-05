@@ -2,13 +2,11 @@
 #include "node.h"
 
 void Link::send(Packet* packet, Node* sender) {
-	auto node = this->other(sender);
-	std::cout 
-      << "Link: forwarding packet from node #" 
-      << sender->id() 
-      << ", to node #" 
-      << node->id() << std::endl;
-	node->onPacketReceived(packet);
+	Simulator::schedule(Simulator::now(), [&, sender, packet](){
+		auto node = this->other(sender);
+    this->log(std::string("packet in: ") + packet->toString() + std::string(" from ") + node->toString());
+		node->onPacketReceived(packet);
+	});
 }
 
 Link::~Link() {}

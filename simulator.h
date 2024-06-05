@@ -7,6 +7,7 @@
 #include <functional>
 #include <queue>
 #include <vector>
+#include <iostream>
 
 class Simulator;
 
@@ -36,6 +37,8 @@ private:
 public:
   static double now() { return time_; }
 
+  static void setTime(double time) { Simulator::time_ = time; }
+
   static void prepare() { srand(RANDOM_SEED); }
 
   static void schedule(double time, std::function<void()> function) {
@@ -43,8 +46,13 @@ public:
   }
 
   static void run() {
-    // 모든 스케줄을 실행한다.
-    // TODO: 구현
+    std::cout << "Simulation starting... " << Simulator::queue.size() << std::endl;
+    while (!Simulator::queue.empty()) {
+      auto schedule = Simulator::queue.top();
+      Simulator::queue.pop();
+
+      schedule.call();
+    }
   }
 };
 

@@ -4,12 +4,19 @@
 #include "service.h"
 #include <string>
 
+class PacketSinkServiceInstaller;
+
 class PacketSinkService : public Service {
+  friend PacketSinkServiceInstaller;
+
 private:
   Host* host;
   short port;
 
   PacketSinkService(Host *host, short port) : Service(host, port), host(host), port(port) {};
+
+public:
+  virtual void onPacketReceived(Packet* packet);
 };
 
 #endif

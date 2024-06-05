@@ -23,6 +23,10 @@ protected:
 
 public:
   virtual void onPacketReceived(Packet* packet) {};
+
+  virtual std::string name() {
+    return "Router";
+  }
 };
 
 #endif

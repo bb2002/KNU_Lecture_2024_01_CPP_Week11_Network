@@ -7,7 +7,7 @@
 #include <map>
 #include <vector>
 
-class Node : Object {
+class Node : public Object {
   friend class LinkInstaller;
 
 private:
@@ -29,6 +29,10 @@ public:
 
   virtual std::string name() {
     return "Node";
+  }
+
+  virtual void log(std::string message) {
+    Object::log(message);
   }
 
   virtual void onPacketReceived(Packet* packet) = 0;

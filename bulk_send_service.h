@@ -30,6 +30,8 @@ private:
     Service::log(message);
   }
 
+  virtual void onPacketReceived(Packet* packet);
+
   virtual void initialize();
 };
 

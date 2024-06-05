@@ -7,20 +7,13 @@ void Host::initialize() {
 }
 
 void Host::send(Packet* packet) {
-  auto links = this->getAllLinks();
-  for (auto iter : links) {
-    std::cout << "Host #" 
-    << this->id() 
-    << ": sending packet (from: " 
-    << this->address().toString() 
-    << ", to: " 
-    << packet->destAddress().toString() 
-    << ", "
-    << packet->data().size() 
-    << " bytes)" 
-    << std::endl;
-    iter->send(packet, this);
-  }
+  Simulator::schedule(Simulator::now(), [&, packet]() {
+    this->log(std::string("sending packet: ") + packet->toString());
+    auto links = this->getAllLinks();
+    for (auto iter : links) {
+      iter->send(packet, this);
+    }
+  });
 }
 
 short Host::get_empty_port() {
