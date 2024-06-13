@@ -86,7 +86,10 @@ public:
   }
 
   virtual void onPacketReceived(Packet* packet) {
-    Simulator::schedule(Simulator::now());
+    Simulator::schedule(Simulator::now(), [&, packet] {
+      Link* link = this->routingTable2_[packet->destAddress().toString()];
+      this.log(std::string("packet in: ") + packet->toString() + "<" + packet->name() + ">"  + "from " + link->toString() + "<" + link->name() + ">"));
+    });
   }
 };
 

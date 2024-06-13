@@ -12,6 +12,7 @@ void Host::send(Packet* packet) {
     auto links = this->getAllLinks();
     for (auto iter : links) {
       iter->send(packet, this);
+      break;
     }
   });
 }
