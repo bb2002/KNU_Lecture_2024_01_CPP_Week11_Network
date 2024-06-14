@@ -7,14 +7,12 @@ void Host::initialize() {
 }
 
 void Host::send(Packet* packet) {
-  Simulator::schedule(Simulator::now(), [&, packet]() {
-    this->log(std::string("sending packet: ") + packet->toString());
-    auto links = this->getAllLinks();
-    for (auto iter : links) {
-      iter->send(packet, this);
-      break;
-    }
-  });
+  this->log(std::string("sending packet: ") + packet->toString());
+  auto links = this->getAllLinks();
+  for (auto iter : links) {
+    iter->send(packet, this);
+    break;
+  }
 }
 
 short Host::get_empty_port() {
@@ -50,21 +48,8 @@ void Host::onPacketReceived(Packet* packet) {
   }
 
   if (isServiceExists) {
-    std::cout << "Host #" 
-      << this->id() 
-      << ": received packet, destination port: "
-      << packet->destPort() 
-      << std::endl;
+    this->log(std::string("received packet: ") + packet->toString() + ", forwarding to " + (*service)->toString());
     (*service)->onPacketReceived(packet);
-  } else {
-    std::cout << "Host #" 
-      << this->id() 
-      << ": no service for packet (from: " 
-      << packet->srcAddress().toString() 
-      << ", to: " << packet->destAddress().toString() 
-      << ", " 
-      << packet->data().size() 
-      << " bytes)" << std::endl;
   }
 
   // 서비스에 도착한 패킷은 더 이상 사용하지 않으니 폐기

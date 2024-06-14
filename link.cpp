@@ -2,9 +2,13 @@
 #include "node.h"
 
 void Link::send(Packet* packet, Node* sender) {
-	Simulator::schedule(Simulator::now(), [&, sender, packet](){
-		auto node = this->other(sender);
-    this->log(std::string("packet in: ") + packet->toString() + std::string(" from ") + node->toString());
+	auto node = this->other(sender);
+	auto currentTime = Simulator::now() + this->delay();
+	this->log(std::string("packet in: ") + packet->toString() + std::string(" from ") + node->toString());
+
+	Simulator::schedule(currentTime, [&, sender, packet, node, currentTime](){
+		Simulator::setTime(currentTime);
+		this->log(std::string("packet out: ") + packet->toString() + std::string(" from ") + node->toString());
 		node->onPacketReceived(packet);
 	});
 }

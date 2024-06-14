@@ -2,5 +2,5 @@
 #include "packet_sink_service_installer.h"
 
 void PacketSinkService::onPacketReceived(Packet* packet) {
-  std::cout << "PacketSinkService::onPacketReceived" << std::endl;
+  this->log(std::string("received total ") + std::to_string(packet->dataString().length()) + " bytes");
 }

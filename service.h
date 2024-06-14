@@ -6,7 +6,7 @@
 
 class Host;
 
-class Service : Object {
+class Service : public Object {
   friend class ServiceInstaller;
 
 protected:
