@@ -19,66 +19,87 @@
 class AutoRouter : public Router {
 public:
   void calculate(const std::vector<Node*>& nodes, const std::vector<Link*>& links) {
-        // 호스트 노드들만 주소 매핑
-        std::unordered_map<Node*, Address> nodeToHostAddress;
-        for (auto node : nodes) {
-            if (Host* host = dynamic_cast<Host*>(node)) {
-                nodeToHostAddress[node] = host->address();
-            }
+    std::vector<Host*> hosts;
+    std::unordered_map<int, Node*> nodeMap;
+    std::unordered_map<int, double> distances;
+    std::unordered_map<int, Node*> previous;
+
+    // 초기화
+    for (Node* node : nodes) {
+        nodeMap[node->id()] = node;
+        if (Host* host = dynamic_cast<Host*>(node)) {
+            hosts.push_back(host);
         }
-
-        // 거리, 이전 노드, 최상의 링크 초기화
-        std::unordered_map<Node*, int> distance;
-        std::unordered_map<Node*, Node*> previous;
-        std::unordered_map<Node*, Link*> bestLink;
-
-        for (auto node : nodes) {
-            distance[node] = INF;
-            previous[node] = nullptr;
-            bestLink[node] = nullptr;
-        }
-
-        auto cmp = [&distance](Node* left, Node* right) { return distance[left] > distance[right]; };
-        std::priority_queue<Node*, std::vector<Node*>, decltype(cmp)> pq(cmp);
-
-        // Assume the first node in the list is the source node
-        Node* source = nodes.front();
-        distance[source] = 0;
-        pq.push(source);
-
-        while (!pq.empty()) {
-            Node* currentNode = pq.top();
-            pq.pop();
-
-            for (auto link : currentNode->getAllLinks()) {
-                Node* neighbor = link->other(currentNode);
-                int newDist = distance[currentNode] + link->delay();
-
-                if (newDist < distance[neighbor]) {
-                    distance[neighbor] = newDist;
-                    previous[neighbor] = currentNode;
-                    bestLink[neighbor] = link;
-                    pq.push(neighbor);
-                }
-            }
-        }
-
-        // 라우팅 테이블 채우기 (호스트 노드 대상으로)
-        routingTable_.clear();
-        for (auto& entry : nodeToHostAddress) {
-            Node* node = entry.first;
-            Address address = entry.second;
-
-            if (bestLink[node] != nullptr) {
-                routingTable_.push_back({address, bestLink[node]});
-            }
-        }
-
-        // std::cout << "ROUTING SIZE: " << this->routingTable_.size() << std::endl;
-        // for (auto& m : this->routingTable_) {
-        //     std::cout << m.first.toString() << std::endl;
-        // }
+        distances[node->id()] = INF;
     }
+
+    typedef std::pair<double, int> PQElement;
+    typedef std::priority_queue<PQElement, std::vector<PQElement>, std::greater<PQElement>> MinHeap;
+    MinHeap pq;
+
+    pq.push({ 0.0, this->id() });
+    distances[this->id()] = 0;
+
+    // 다익스트라 알고리즘
+    while (!pq.empty()) {
+        // auto [w, current] = pq.top();
+        auto w = pq.top().first;
+        auto current = pq.top().second;
+        pq.pop();
+
+        if (distances[current] < w) {
+            continue;
+        }
+
+        Node* currentNode = nodeMap[current];
+        if (currentNode == NULL) {
+            continue;
+        }
+
+        for (auto link : currentNode->getAllLinks()) {
+            int next = link->other(currentNode)->id();
+            double weight = link->delay();
+
+            if (distances[current] + weight < distances[next]) {
+                distances[next] = distances[current] + weight;
+                pq.push({ distances[next], next });
+                previous[next] = currentNode;
+            }
+        }
+    }
+
+    // 라우팅 테이블 설정
+    for (Host* host : hosts) {
+        std::queue<Node*> q;
+        q.push(host);
+        Node* prev = this;
+        Node* nxt = NULL;
+
+        while (!q.empty()) {
+            Node* current = q.front();
+            q.pop();
+
+            std::cout << current->id() << " -> ";
+
+            if (previous.find(current->id()) != previous.end()) {
+                nxt = previous[current->id()];
+                q.push(nxt);
+                prev = current;
+                std::cout << nxt->id() << "->";
+            } else {
+                break;
+            }
+            std::cout << std::endl;
+        }
+
+        for (Link* lnk : getAllLinks()) {
+            if (lnk->other(this) == prev) {
+                this->routingTable_.push_back({ host->address(), lnk });
+            }
+        }
+    }
+}
+
 
   virtual std::string name() {
     return "AutoRouter";
