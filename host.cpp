@@ -50,6 +50,8 @@ void Host::onPacketReceived(Packet* packet) {
   if (isServiceExists) {
     this->log(std::string("received packet: ") + packet->toString() + ", forwarding to " + (*service)->toString());
     (*service)->onPacketReceived(packet);
+  } else {
+    this->log("no service for packet: " + packet->toString());
   }
 
   // 서비스에 도착한 패킷은 더 이상 사용하지 않으니 폐기

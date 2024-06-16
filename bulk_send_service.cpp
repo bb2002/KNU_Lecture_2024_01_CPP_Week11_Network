@@ -1,11 +1,19 @@
 #include "bulk_send_service.h"
+#include "string.h"
 
 void BulkSendService::initialize() {
-  std::cout << this->startTime << ", " << this->delay << ", " << this->stopTime << std::endl;
   for (double i = this->startTime; i <= this->stopTime; i += this->delay) {
     Simulator::schedule(i, [&, i]() {
       Simulator::setTime(i);
       this->log("sending data");
+      
+      // 메시지 생성
+      int size = rand() % 16384;
+      char* msg = new char[size];
+      memset(msg, 'A', size);
+      msg[size - 1] = '\0';
+
+      // 패킷 송신
       Host* host = this->host;
       host->send(
         new Packet(
@@ -13,13 +21,11 @@ void BulkSendService::initialize() {
           this->destAddress,
           this->getPort(),
           this->destPort,
-          "Welcome to the aperture"
+          msg
         )
       );
     });
   }
 }
 
-void BulkSendService::onPacketReceived(Packet* pakcet) {
-  std::cout << "BulkSendService::onPacketReceived" << std::endl;
-}
+void BulkSendService::onPacketReceived(Packet* packet) {}

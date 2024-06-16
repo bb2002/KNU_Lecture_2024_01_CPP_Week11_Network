@@ -42,61 +42,56 @@ public:
 
     // 다익스트라 알고리즘
     while (!pq.empty()) {
-        // auto [w, current] = pq.top();
-        auto w = pq.top().first;
-        auto current = pq.top().second;
-        pq.pop();
+      auto w = pq.top().first;
+      auto current = pq.top().second;
+      pq.pop();
 
-        if (distances[current] < w) {
-            continue;
+      if (distances[current] < w) {
+        continue;
+      }
+
+      Node* currentNode = nodeMap[current];
+      if (currentNode == NULL) {
+        continue;
+      }
+
+      for (auto link : currentNode->getAllLinks()) {
+        int next = link->other(currentNode)->id();
+        double weight = link->delay();
+
+        if (distances[current] + weight < distances[next]) {
+          distances[next] = distances[current] + weight;
+          pq.push({ distances[next], next });
+          previous[next] = currentNode;
         }
-
-        Node* currentNode = nodeMap[current];
-        if (currentNode == NULL) {
-            continue;
-        }
-
-        for (auto link : currentNode->getAllLinks()) {
-            int next = link->other(currentNode)->id();
-            double weight = link->delay();
-
-            if (distances[current] + weight < distances[next]) {
-                distances[next] = distances[current] + weight;
-                pq.push({ distances[next], next });
-                previous[next] = currentNode;
-            }
-        }
+      }
     }
 
-    // 라우팅 테이블 설정
-    for (Host* host : hosts) {
-        std::queue<Node*> q;
-        q.push(host);
-        Node* prev = this;
-        Node* nxt = NULL;
+  // 라우팅 테이블 설정
+  for (Host* host : hosts) {
+    std::queue<Node*> q;
+    q.push(host);
+    Node* prev = this;
+    Node* nxt = NULL;
 
-        while (!q.empty()) {
-            Node* current = q.front();
-            q.pop();
+    while (!q.empty()) {
+        Node* current = q.front();
+        q.pop();
 
-            std::cout << current->id() << " -> ";
-
-            if (previous.find(current->id()) != previous.end()) {
-                nxt = previous[current->id()];
-                q.push(nxt);
-                prev = current;
-                std::cout << nxt->id() << "->";
-            } else {
-                break;
-            }
-            std::cout << std::endl;
+        if (previous.find(current->id()) != previous.end()) {
+          nxt = previous[current->id()];
+          q.push(nxt);
+          prev = current;
+        } else {
+          break;
         }
+      }
 
-        for (Link* lnk : getAllLinks()) {
-            if (lnk->other(this) == prev) {
-                this->routingTable_.push_back({ host->address(), lnk });
-            }
+      for (Link* lnk : getAllLinks()) {
+        if (lnk->other(this) == prev) {
+          this->routingTable_.push_back({ host->address(), lnk });
         }
+      }
     }
 }
 
@@ -106,6 +101,7 @@ public:
   }
 
   virtual void onPacketReceived(Packet* packet) {
+    bool isPacketSend = false;
     for (auto link : this->routingTable_) {
       if (link.first == packet->destAddress()) {
         this->log(std::string("forwarding packet: ") +
@@ -114,8 +110,14 @@ public:
           link.second->toString()
         );
         link.second->send(packet, this);
+        isPacketSend = true;
         break;
       }
+    }
+
+    if (!isPacketSend) {
+      this->log("no route for packet: " + packet->toString());
+      delete packet;
     }
   }
 };

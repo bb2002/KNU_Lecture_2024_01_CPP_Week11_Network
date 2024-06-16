@@ -8,7 +8,7 @@ void Link::send(Packet* packet, Node* sender) {
 
 	Simulator::schedule(currentTime, [&, sender, packet, node, currentTime](){
 		Simulator::setTime(currentTime);
-		this->log(std::string("packet out: ") + packet->toString() + std::string(" from ") + node->toString());
+		this->log(std::string("packet out: ") + packet->toString() + std::string(" to ") + node->toString());
 		node->onPacketReceived(packet);
 	});
 }
