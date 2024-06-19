@@ -45,15 +45,7 @@ public:
     Simulator::queue.push({ time, function });
   }
 
-  static void run() {
-    std::cout << "Simulation starting... " << Simulator::queue.size() << std::endl;
-    while (!Simulator::queue.empty()) {
-      auto schedule = Simulator::queue.top();
-      Simulator::queue.pop();
-
-      schedule.call();
-    }
-  }
+  static void run();
 };
 
 #endif
