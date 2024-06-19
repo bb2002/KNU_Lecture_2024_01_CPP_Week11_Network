@@ -21,7 +21,16 @@ private:
 
 public:
   Address address() { return address_; }
+
   Host(Address address) : address_(address) {}
+
+  Host(const char* address) {
+    this->address_ = Address(address);
+  }
+
+  Host(int address) {
+    this->address_ = Address(std::to_string(address));
+  }
   
   // 호스트와 설치된 서비스를 전부 초기화한다.
   void initialize();

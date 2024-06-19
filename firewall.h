@@ -33,4 +33,6 @@ public:
 
   void addAllowAnyPolicy(short destPort);
   void addAllowSpecificPolicy(Address srcAddress, short destPort);
+
+  virtual void onPacketReceived(Packet* packet);
 };

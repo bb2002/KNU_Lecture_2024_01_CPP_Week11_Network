@@ -7,6 +7,8 @@
 #include <vector>
 
 class Packet : public Object {
+friend class Nat;
+
 public:
   Packet(Address srcAddress, Address destAddress, short srcPort, short destPort,
          std::string data)

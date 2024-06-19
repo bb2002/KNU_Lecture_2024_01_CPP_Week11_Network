@@ -2,12 +2,16 @@
 #include "object.h"
 
 double Simulator::time_ = 0.0;
+std::priority_queue<Schedule> Simulator::queue;
 
 void Simulator::run() {
   Object::initializeAll();
 
-  // 모든 스케줄을 실행한다.
-  // TODO: 구현
+  while(!Simulator::queue.empty()) {
+    auto schedule = Simulator::queue.top();
+    Simulator::queue.pop();
+    schedule.call();
+  }
 
   Object::cleanup();
 }

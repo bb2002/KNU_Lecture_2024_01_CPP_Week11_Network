@@ -1,9 +1,9 @@
 CC = g++
 CFLAGS = -g -Wall -Werror -std=c++11
-OBJECTS = simulator.o object.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o bulk_send_service_installer.o bulk_send_service.o packet_sink_service_installer.o packet_sink_service.o
+OBJECTS = simulator.o firewall.o object.o service.o service_installer.o packet.o node.o message_service.o message_service_installer.o manual_router.o link.o link_installer.o host.o echo_service.o echo_service_installer.o bulk_send_service_installer.o bulk_send_service.o packet_sink_service_installer.o packet_sink_service.o
 
 # All target
-all: first second third forth
+all: first second third forth fifth sixth
 
 first: first.o $(OBJECTS)
 	$(CC) $(CFLAGS) -o first first.o $(OBJECTS)
@@ -17,6 +17,12 @@ third: third.o $(OBJECTS)
 forth: forth.o $(OBJECTS)
 	$(CC) $(CFLAGS) -o forth forth.o $(OBJECTS)
 
+fifth: fifth.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o fifth fifth.o $(OBJECTS)
+
+sixth: sixth.o $(OBJECTS)
+	$(CC) $(CFLAGS) -o sixth sixth.o $(OBJECTS)
+
 # Object files
 first.o: scenarios/first.cpp
 	$(CC) $(CFLAGS) -c scenarios/first.cpp -o first.o
@@ -29,6 +35,12 @@ third.o: scenarios/third.cpp
 
 forth.o: scenarios/forth.cpp
 	$(CC) $(CFLAGS) -c scenarios/forth.cpp
+
+fifth.o: scenarios/fifth.cpp
+	$(CC) $(CFLAGS) -c scenarios/fifth.cpp
+
+sixth.o: scenarios/sixth.cpp
+	$(CC) $(CFLAGS) -c scenarios/sixth.cpp
 
 echo_service_installer.o: echo_service_installer.cpp echo_service_installer.h
 	$(CC) $(CFLAGS) -c echo_service_installer.cpp -o echo_service_installer.o
@@ -71,6 +83,9 @@ service_installer.o: service_installer.cpp service_installer.h
 
 service.o: service.cpp service.h
 	$(CC) $(CFLAGS) -c service.cpp -o service.o
+
+firewall.o: firewall.cpp firewall.h
+	$(CC) $(CFLAGS) -c firewall.cpp -o firewall.o
 
 bulk_send_service_installer.o: bulk_send_service_installer.cpp bulk_send_service_installer.h
 	$(CC) $(CFLAGS) -c bulk_send_service_installer.cpp -o bulk_send_service_installer.o

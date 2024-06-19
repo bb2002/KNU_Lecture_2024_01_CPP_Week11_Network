@@ -69,7 +69,14 @@
     "unordered_map": "cpp",
     "unordered_set": "cpp",
     "xhash": "cpp",
-    "xtree": "cpp"
+    "xtree": "cpp",
+    "*.tcc": "cpp",
+    "cstdarg": "cpp",
+    "cwctype": "cpp",
+    "memory_resource": "cpp",
+    "numeric": "cpp",
+    "random": "cpp",
+    "fstream": "cpp"
   },
   "C_Cpp.default.compilerPath": "C:\\MinGW\\bin\\g++.exe"
 }
