@@ -8,7 +8,7 @@ void BulkSendService::initialize() {
       this->log("sending data");
       
       // 메시지 생성
-      int size = rand() % 16384;
+      int size = rand() % 1024;
       char* msg = new char[size];
       memset(msg, 'A', size);
       msg[size - 1] = '\0';
