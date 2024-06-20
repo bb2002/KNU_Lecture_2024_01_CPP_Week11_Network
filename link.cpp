@@ -4,7 +4,7 @@
 void Link::send(Packet* packet, Node* sender) {
 	auto node = this->other(sender);
 	auto currentTime = Simulator::now() + this->delay();
-	this->log(std::string("packet in: ") + packet->toString() + std::string(" from ") + node->toString());
+	this->log(std::string("packet in: ") + packet->toString() + std::string(" from ") + sender->toString());
 
 	Simulator::schedule(currentTime, [&, sender, packet, node, currentTime](){
 		Simulator::setTime(currentTime);
